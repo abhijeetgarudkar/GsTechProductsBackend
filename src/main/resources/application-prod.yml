@@ -1,0 +1,5 @@
+whatsapp:
+  enabled: true
+  api-base-url: https://graph.facebook.com/v18.0
+  phone-number-id: REAL_PHONE_NUMBER_ID
+  access-token: REAL_PERMANENT_ACCESS_TOKEN
