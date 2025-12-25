@@ -50,4 +50,8 @@ public class CartService {
     public List<CartItems> getAllItems() {
         return new ArrayList<>(cartItems.values());
     }
+
+    public void clearCart() {
+        cartItems.clear();
+    }
 }
