@@ -1,4 +1,4 @@
-package com.example.GSTechSecuritySystem.Do;
+package com.example.GSTechSecuritySystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

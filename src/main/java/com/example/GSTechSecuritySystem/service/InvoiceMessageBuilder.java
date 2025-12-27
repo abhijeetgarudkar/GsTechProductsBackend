@@ -1,6 +1,6 @@
 package com.example.GSTechSecuritySystem.service;
 
-import com.example.GSTechSecuritySystem.Do.CartItems;
+import com.example.GSTechSecuritySystem.model.CartItems;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +11,7 @@ public class InvoiceMessageBuilder {
     public String buildMessage(
             String customerName,
             List<CartItems> items,
-            double total
-    ) {
+            double total) {
         StringBuilder sb = new StringBuilder();
         sb.append("🧾 *Invoice Generated*\n\n");
         sb.append("Customer: ").append(customerName).append("\n\n");

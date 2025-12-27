@@ -1,7 +1,7 @@
 package com.example.GSTechSecuritySystem.service;
 
-import com.example.GSTechSecuritySystem.Do.Product;
-import com.example.GSTechSecuritySystem.Repository.ProductRepository;
+import com.example.GSTechSecuritySystem.model.Product;
+import com.example.GSTechSecuritySystem.repository.ProductRepository;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -34,6 +34,7 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
+        System.out.println("In getAllProducts method...");
         return productRepo.findAll();
     }
 
@@ -69,7 +70,8 @@ public class ProductService {
                     continue;
                 }
                 String[] data = line.split(",");
-                if (data.length < 3) continue;
+                if (data.length < 3)
+                    continue;
 
                 String productName = data[0].trim();
                 if (!seen.add(productName)) {
@@ -106,7 +108,10 @@ public class ProductService {
             Set<String> seen = new HashSet<>();
 
             for (Row row : sheet) {
-                if (isHeader) { isHeader = false; continue; }
+                if (isHeader) {
+                    isHeader = false;
+                    continue;
+                }
 
                 String productName = row.getCell(0).getStringCellValue().trim();
 
@@ -118,8 +123,10 @@ public class ProductService {
                 String companyName = row.getCell(1).getStringCellValue().trim();
                 double price = row.getCell(2).getNumericCellValue();
 
-                if (upsertProduct(productName, companyName, price)) updatedCount++;
-                else insertedCount++;
+                if (upsertProduct(productName, companyName, price))
+                    updatedCount++;
+                else
+                    insertedCount++;
             }
 
             workbook.close();

@@ -1,4 +1,4 @@
-package com.example.GSTechSecuritySystem.Do;
+package com.example.GSTechSecuritySystem.model;
 
 public class LoginResponse {
     private String token;
@@ -11,7 +11,15 @@ public class LoginResponse {
         this.username = username;
     }
 
-    public String getToken() { return token; }
-    public String getRole() { return role; }
-    public String getUsername() { return username; }
+    public String getToken() {
+        return token;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 }

@@ -1,6 +1,6 @@
-package com.example.GSTechSecuritySystem.Repository;
+package com.example.GSTechSecuritySystem.repository;
 
-import com.example.GSTechSecuritySystem.Do.Order;
+import com.example.GSTechSecuritySystem.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

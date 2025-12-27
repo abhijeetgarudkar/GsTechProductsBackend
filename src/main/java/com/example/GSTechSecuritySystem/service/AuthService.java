@@ -2,10 +2,11 @@ package com.example.GSTechSecuritySystem.service;
 
 import java.util.UUID;
 
-import com.example.GSTechSecuritySystem.Do.LoginRequest;
-import com.example.GSTechSecuritySystem.Do.LoginResponse;
-import com.example.GSTechSecuritySystem.Do.User;
-import com.example.GSTechSecuritySystem.Repository.UserRepository;
+import com.example.GSTechSecuritySystem.exception.InvalidCredentialsException;
+import com.example.GSTechSecuritySystem.model.LoginRequest;
+import com.example.GSTechSecuritySystem.model.LoginResponse;
+import com.example.GSTechSecuritySystem.model.User;
+import com.example.GSTechSecuritySystem.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder; // BCrypt
 
     public AuthService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -26,7 +27,21 @@ public class AuthService {
     }
 
     public LoginResponse loginAsUser(LoginRequest request) {
-        return loginWithRequiredRole(request, User.Role.USER);
+
+        System.out.println(">>> SERVICE HIT: loginAsUser()");
+        System.out.println(">>> LOOKING FOR USERNAME = [" + request.getUsername() + "]");
+
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid username or password"));
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new InvalidCredentialsException("Invalid username or password");
+        }
+
+        return new LoginResponse(
+                user.getUsername(),
+                "USER",
+                request.getUsername());
     }
 
     private LoginResponse loginWithRequiredRole(LoginRequest request, User.Role requiredRole) {

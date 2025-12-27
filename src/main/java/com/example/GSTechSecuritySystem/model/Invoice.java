@@ -1,4 +1,4 @@
-package com.example.GSTechSecuritySystem.Do;
+package com.example.GSTechSecuritySystem.model;
 
 import java.util.List;
 
@@ -10,7 +10,8 @@ public class Invoice {
     private List<CartItems> items;
     private double totalAmount;
 
-    public Invoice(String invoiceNumber, String customerName, String mobileNumber, String address, List<CartItems> items, double totalAmount) {
+    public Invoice(String invoiceNumber, String customerName, String mobileNumber, String address,
+            List<CartItems> items, double totalAmount) {
         this.invoiceNumber = invoiceNumber;
         this.customerName = customerName;
         this.mobileNumber = mobileNumber;

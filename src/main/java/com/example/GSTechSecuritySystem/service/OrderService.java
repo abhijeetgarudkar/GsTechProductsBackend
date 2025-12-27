@@ -1,9 +1,9 @@
 package com.example.GSTechSecuritySystem.service;
 
-import com.example.GSTechSecuritySystem.Do.Order;
-import com.example.GSTechSecuritySystem.Do.OrderResponseDTO;
-import com.example.GSTechSecuritySystem.Do.OrderResponseDTO.OrderItemDTO;
-import com.example.GSTechSecuritySystem.Repository.OrderRepository;
+import com.example.GSTechSecuritySystem.model.Order;
+import com.example.GSTechSecuritySystem.model.OrderResponseDTO;
+import com.example.GSTechSecuritySystem.model.OrderResponseDTO.OrderItemDTO;
+import com.example.GSTechSecuritySystem.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +45,7 @@ public class OrderService {
 
         public Order saveOrder(Long userId, String username, String customerName,
                         String mobileNumber, String address,
-                        List<com.example.GSTechSecuritySystem.Do.CartItems> cartItems,
+                        List<com.example.GSTechSecuritySystem.model.CartItems> cartItems,
                         double totalAmount, String status) {
 
                 // Create new order
@@ -60,9 +60,9 @@ public class OrderService {
                 order.setStatus(status);
 
                 // Create order items from cart items
-                List<com.example.GSTechSecuritySystem.Do.OrderItem> orderItems = cartItems.stream()
+                List<com.example.GSTechSecuritySystem.model.OrderItem> orderItems = cartItems.stream()
                                 .map(cartItem -> {
-                                        com.example.GSTechSecuritySystem.Do.OrderItem orderItem = new com.example.GSTechSecuritySystem.Do.OrderItem();
+                                        com.example.GSTechSecuritySystem.model.OrderItem orderItem = new com.example.GSTechSecuritySystem.model.OrderItem();
                                         orderItem.setOrder(order);
                                         orderItem.setProductName(cartItem.getProduct().getProductName());
                                         orderItem.setQuantity(cartItem.getQuantity());

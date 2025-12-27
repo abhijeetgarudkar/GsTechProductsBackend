@@ -1,8 +1,8 @@
 package com.example.GSTechSecuritySystem.service;
 
-import com.example.GSTechSecuritySystem.Do.CartItems;
-import com.example.GSTechSecuritySystem.Do.CartRequestDTO;
-import com.example.GSTechSecuritySystem.Do.Product;
+import com.example.GSTechSecuritySystem.model.CartItems;
+import com.example.GSTechSecuritySystem.model.CartRequestDTO;
+import com.example.GSTechSecuritySystem.model.Product;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -40,10 +40,10 @@ public class CartService {
                 .mapToDouble(CartItems::getTotalPrice)
                 .sum();
 
-        double cartTotalWithGSt = cartTotal * (double) (gstValue/100) + cartTotal;
-        System.out.println("cartTotal.."+cartTotal);
-        System.out.println("GSt.."+gstValue);
-        System.out.println("cartTotal after adding GST.."+cartTotalWithGSt);
+        double cartTotalWithGSt = cartTotal * (double) (gstValue / 100) + cartTotal;
+        System.out.println("cartTotal.." + cartTotal);
+        System.out.println("GSt.." + gstValue);
+        System.out.println("cartTotal after adding GST.." + cartTotalWithGSt);
         return cartTotalWithGSt;
     }
 

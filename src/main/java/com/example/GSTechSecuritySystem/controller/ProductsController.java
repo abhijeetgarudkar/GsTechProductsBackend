@@ -5,9 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.GSTechSecuritySystem.Do.*;
-import com.example.GSTechSecuritySystem.service.*;
-import com.example.GSTechSecuritySystem.Repository.UserRepository;
+import com.example.GSTechSecuritySystem.model.*;
+import com.example.GSTechSecuritySystem.service.AuthService;
+import com.example.GSTechSecuritySystem.service.CartService;
+import com.example.GSTechSecuritySystem.service.InvoiceMessageBuilder;
+import com.example.GSTechSecuritySystem.service.OrderService;
+import com.example.GSTechSecuritySystem.service.ProductService;
+import com.example.GSTechSecuritySystem.service.ProductTypesService;
+import com.example.GSTechSecuritySystem.service.WhatsAppSender;
+import com.example.GSTechSecuritySystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +61,8 @@ public class ProductsController {
 
     @PostMapping("/user/login")
     public ResponseEntity<LoginResponse> userLogin(@RequestBody LoginRequest request) {
+        System.out.println(">>> CONTROLLER HIT: /user/login");
+        System.out.println(">>> REQUEST USERNAME = [" + request.getUsername() + "]");
         LoginResponse resp = authService.loginAsUser(request);
         return ResponseEntity.ok(resp);
     }
@@ -84,6 +92,7 @@ public class ProductsController {
 
     @GetMapping("/products")
     public List<Product> getAllProducts() {
+        System.out.println("In get products....");
         return productService.getAllProducts();
     }
 
@@ -125,7 +134,7 @@ public class ProductsController {
         String invoiceNumber = "INV-" + System.currentTimeMillis();
 
         // 2.5 Resolve userId from username
-        com.example.GSTechSecuritySystem.Do.User user = userRepository.findByUsername(request.getUsername())
+        com.example.GSTechSecuritySystem.model.User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found with username: " + request.getUsername()));
         Long userId = user.getId();
 

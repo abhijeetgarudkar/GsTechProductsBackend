@@ -1,4 +1,4 @@
-package com.example.GSTechSecuritySystem.Do;
+package com.example.GSTechSecuritySystem.model;
 
 public class CartRequestDTO {
 
