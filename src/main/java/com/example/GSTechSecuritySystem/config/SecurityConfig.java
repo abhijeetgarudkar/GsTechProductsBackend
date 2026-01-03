@@ -42,7 +42,8 @@ public class SecurityConfig {
                 "http://localhost:80",
                 "http://localhost:3000",
                 "http://localhost:4200",
-                "http://localhost:8080"
+                "http://localhost:8080",
+                "https://gstechsecurity.netlify.app"
         ));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
