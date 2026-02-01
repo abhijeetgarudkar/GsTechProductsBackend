@@ -4,11 +4,11 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTest
 
 # ---- Runtime stage ----
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-Xmx256m","-jar","/app/app.jar"]
