@@ -12,14 +12,12 @@ public class KeepAliveScheduler {
     private final RestTemplate restTemplate = new RestTemplate();
 
     // every 5 minutes
-    @Scheduled(fixedRate = 1 * 60 * 1000)
+    @Scheduled(fixedRate = 3 * 60 * 1000)
     public void keepServerAlive() {
         try {
             String url = "https://gstechproductsbackend.onrender.com/health";
 
             String response = restTemplate.getForObject(url, String.class);
-
-            System.out.println("KeepAlive Ping Success: " + response);
 
         } catch (Exception e) {
             System.out.println("KeepAlive Ping Failed: " + e.getMessage());
