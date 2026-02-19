@@ -22,8 +22,13 @@ public class SecurityConfig {
 
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()
+                )
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.sameOrigin())
+                )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form.disable())
@@ -44,7 +49,8 @@ public class SecurityConfig {
                 "http://localhost:4200",
                 "http://localhost:8080",
                 "https://gstechsecurity.netlify.app",
-                "https://gstechsecurity.in"
+                "https://gstechsecurity.in",
+                "http://localhost:5500"
         ));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));

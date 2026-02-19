@@ -7,6 +7,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriUtils;
+
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class GupshupInvoiceTextService {
@@ -32,18 +35,21 @@ public class GupshupInvoiceTextService {
             String totalAmount
     ) {
 
-        String url = "https://api.gupshup.io/sm/api/v1/msg";
+        String url = "https://api.gupshup.io/wa/api/v1/msg";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.set("apikey", apiKey);
 
-        String templateJson = """
-        {
-          "id": "invoice_with_items",
-          "params": ["%s", "%s", "%s", "%s", "%s"]
-        }
-        """.formatted(
+        String messageJson = """
+    {
+      "type":"template",
+      "template":{
+        "id":"invoice_with_items",
+        "params":["%s","%s","%s","%s","%s"]
+      }
+    }
+    """.formatted(
                 customerName,
                 invoiceNo,
                 invoiceDate,
@@ -51,11 +57,14 @@ public class GupshupInvoiceTextService {
                 totalAmount
         );
 
+        String encodedMessage = UriUtils.encode(messageJson, StandardCharsets.UTF_8);
+
         String body =
                 "channel=whatsapp" +
                         "&source=" + sourceNumber +
                         "&destination=" + customerNumber +
-                        "&template=" + templateJson;
+                        "&message=" + encodedMessage +
+                        "&src.name=GSTechChatBot";
 
         HttpEntity<String> request = new HttpEntity<>(body, headers);
 
