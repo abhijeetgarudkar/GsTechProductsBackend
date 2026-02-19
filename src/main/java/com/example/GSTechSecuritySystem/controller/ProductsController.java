@@ -119,6 +119,21 @@ public class ProductsController {
         return cartService.getAllItems();
     }
 
+    @DeleteMapping("/product/removeFromCart")
+    public ResponseEntity<?> removeFromCart(@RequestBody CartRequestDTO cartRequestDTO) {
+        List<CartItems> cartItems = cartService.removeFromCart(
+                cartRequestDTO.getProduct().getProductName(),
+                cartRequestDTO.getQuantity());
+        double total = cartService.calculateCartTotal();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Product removed/updated successfully");
+        response.put("cartItems", cartItems);
+        response.put("cartTotal", total);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/cart/checkout")
     public ResponseEntity<?> cartCheckout(@RequestBody CheckoutRequestDTO request) {
 

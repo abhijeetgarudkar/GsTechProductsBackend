@@ -51,6 +51,23 @@ public class CartService {
         return new ArrayList<>(cartItems.values());
     }
 
+    public List<CartItems> removeFromCart(String productName, int quantity) {
+        CartItems existingItem = cartItems.get(productName);
+
+        if (existingItem != null) {
+            int newQuantity = existingItem.getQuantity() - quantity;
+            if (newQuantity <= 0) {
+                // Remove item entirely if quantity becomes 0 or less
+                cartItems.remove(productName);
+            } else {
+                existingItem.setQuantity(newQuantity);
+                existingItem.setTotalPrice(newQuantity * existingItem.getProduct().getProductPrice());
+            }
+        }
+
+        return new ArrayList<>(cartItems.values());
+    }
+
     public void clearCart() {
         cartItems.clear();
     }
